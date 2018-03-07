@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\Playerr2.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFade.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFadeFixedTime.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorGetLayerIndex.cs" />
@@ -964,10 +963,10 @@
  <HintPath>D:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="uScript">
- <HintPath>C:/Users/Cagdas/Documents/hellraiser/Assets/uScript_PLE/uScriptEditor/Editor/uScript.dll</HintPath>
+ <HintPath>D:/Program Files/GitHub/UnityGame/hellraiser/Assets/uScript_PLE/uScriptEditor/Editor/uScript.dll</HintPath>
  </Reference>
  <Reference Include="uScriptRuntime">
- <HintPath>C:/Users/Cagdas/Documents/hellraiser/Assets/uScript_PLE/uScriptRuntime/uScriptRuntime.dll</HintPath>
+ <HintPath>D:/Program Files/GitHub/UnityGame/hellraiser/Assets/uScript_PLE/uScriptRuntime/uScriptRuntime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Users/Cagdas/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
