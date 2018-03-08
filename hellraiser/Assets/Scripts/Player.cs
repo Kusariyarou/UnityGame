@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	BoxCollider2D playerBox;			//! box collider
+	CircleCollider2D playerCircle;		//! circle collider
+
+	private bool canDown = false;
+
 	private Rigidbody2D myRigidbody;
+
+	private GameObject[] tObjects;		//! içinden geçilebilecek objelerin listesi
 
 	private Animator myAnimator;
 
@@ -17,6 +24,20 @@ public class Player : MonoBehaviour {
 
 	private bool facingRight;
 
+	bool grounded = false;
+
+	public Transform groundCheck;
+
+	float groundRadius = 0.2f;
+
+	public float jumpForce = 700f;
+
+	public LayerMask whatIsGround;
+
+	bool doubleJump = false;
+
+
+
 
 
 
@@ -28,11 +49,35 @@ public class Player : MonoBehaviour {
 		facingRight = true;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator>();
+		playerBox = GetComponent<BoxCollider2D>();				//! box collider'ı ata
+		playerCircle = GetComponent<CircleCollider2D>();		//! circle collider'ı ata
+		tObjects = GameObject.FindGameObjectsWithTag("DownThrough");	//! içinden geçilcek objeleri bul, listeye at
 
 	}
 
 	void Update()
 	{
+		
+		if ((grounded || !doubleJump) && Input.GetKeyDown (KeyCode.Space))
+		{
+			myAnimator.SetBool ("Ground", false);
+
+			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+
+			if (!doubleJump && !grounded)
+				doubleJump = true;
+		}
+
+		if (grounded && Input.GetKeyDown (KeyCode.JoystickButton0))
+		{
+			myAnimator.SetBool ("Ground", false);
+
+			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+		}
+
+
+
+
 		HandleInput ();
 
 
@@ -41,6 +86,15 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+
+		myAnimator.SetBool ("Ground", grounded);
+
+		if (grounded)
+			doubleJump = false;
+
+		myAnimator.SetFloat ("vSpeed", GetComponent<Rigidbody2D> ().velocity.y);
 
 		float horizontal = Input.GetAxis ("Horizontal");
 
@@ -94,6 +148,9 @@ public class Player : MonoBehaviour {
 
 	private void HandleInput()
 	{
+		
+
+
 		if (Input.GetKeyDown (KeyCode.Mouse0)) 
 		{
 			fastattack = true;
@@ -113,6 +170,17 @@ public class Player : MonoBehaviour {
 		{
 			roll = true;
 		}
+
+		if (Input.GetAxis ("Vertical") < 0 && canDown)  //! aşağı ok butonunu al
+		{
+			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
+		}
+
+
+
+
+
+
 	}
 
 
@@ -131,6 +199,7 @@ public class Player : MonoBehaviour {
 		}
 
 
+
 	}
 
 	private void ResetValues()
@@ -140,6 +209,31 @@ public class Player : MonoBehaviour {
 
 		roll = false;
 
+
+	}
+
+	private IEnumerator JumpDown(){
+		foreach (GameObject go in tObjects) {		//! İçinden geçilebilir objeler için
+			Physics2D.IgnoreCollision (playerBox,  go.GetComponent<Collider2D> ());		//! box collider çarpışmasını yoksay
+			Physics2D.IgnoreCollision (playerCircle, go.GetComponent<Collider2D> ());	//! circle collider çarpışmasını yoksay
+		}
+		myRigidbody.velocity = new Vector3(0, -10, 0);		//! yere inme hızı ver
+		yield return new WaitForSeconds (0.4f);			//!0.5 saniye bekle
+		foreach (GameObject go in tObjects) {		//! collider çarpışmalarını eski haline getir
+			Physics2D.IgnoreCollision (playerBox,  go.GetComponent<Collider2D> (), false);
+			Physics2D.IgnoreCollision (playerCircle, go.GetComponent<Collider2D> (), false);
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "DownThrough")
+			canDown= true;
+
+	}
+
+	void OnCollisionExit2D(Collision2D coll) {
+		if (coll.gameObject.tag == "DownThrough")
+			canDown= false;
 
 	}
 }
