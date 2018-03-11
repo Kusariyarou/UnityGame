@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	BoxCollider2D playerBox;			//! box collider
-	CircleCollider2D playerCircle;		//! circle collider
+	CapsuleCollider2D playerCapsule;			//! player collider
+	BoxCollider2D playerBox;				//! crouch collider
 
 	private bool canDown = false;
 
@@ -36,8 +36,7 @@ public class Player : MonoBehaviour {
 
 	bool doubleJump = false;
 
-	private float crouch;
-	public bool crouching;
+	public bool crouching = false;
 
 
 
@@ -53,8 +52,8 @@ public class Player : MonoBehaviour {
 		facingRight = true;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator>();
-		playerBox = GetComponent<BoxCollider2D>();				//! box collider'ı ata
-		playerCircle = GetComponent<CircleCollider2D>();		//! circle collider'ı ata
+		playerCapsule = GetComponent<CapsuleCollider2D>();				//! capsule collider'ı ata
+		playerBox = GetComponent<BoxCollider2D>();						//! box collider'ı ata
 		tObjects = GameObject.FindGameObjectsWithTag("DownThrough");	//! içinden geçilcek objeleri bul, listeye at
 
 	}
@@ -123,7 +122,8 @@ public class Player : MonoBehaviour {
 
 	private void HandleMovement (float horizontal)
 	{
-		if (!myAnimator.GetBool("roll") && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("FastAttack")) 
+		if (!myAnimator.GetBool("roll") && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall"))) 
 		{
 			
 		
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour {
 
 	private void HandleAttacks()
 	{
-		if (fastattack && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("Attack"))
+		if (fastattack && myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("Attack"))
 		{
 			myAnimator.SetTrigger ("lightattack");
 			myRigidbody.velocity = Vector2.zero;
@@ -194,22 +194,17 @@ public class Player : MonoBehaviour {
 		}
 			
 
-		if (Input.GetAxis ("Vertical") < 0)   // crocuh ture false yapma
-		{
+		if (Input.GetAxis ("Vertical") < 0)   // crouch true false yapma
 			crouching = true;
-		} else
+		if (crouching && Input.GetAxis ("Vertical") > -1 )
 			crouching = false;
 
-		if (crouching && !this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch")) {
+		if (crouching && myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			myAnimator.SetBool ("crouching", true);
-		} else if (!this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch"))
+		} else if (!crouching && myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch"))
 		{
 			myAnimator.SetBool ("crouching", false);
 		}
-
-
-
-
 
 	}
 
@@ -227,9 +222,6 @@ public class Player : MonoBehaviour {
 
 			transform.localScale = theScale;
 		}
-
-
-
 	}
 
 	private void ResetValues()
@@ -244,14 +236,14 @@ public class Player : MonoBehaviour {
 
 	private IEnumerator JumpDown(){
 		foreach (GameObject go in tObjects) {		//! İçinden geçilebilir objeler için
-			Physics2D.IgnoreCollision (playerBox,  go.GetComponent<Collider2D> ());		//! box collider çarpışmasını yoksay
-			Physics2D.IgnoreCollision (playerCircle, go.GetComponent<Collider2D> ());	//! circle collider çarpışmasını yoksay
+			Physics2D.IgnoreCollision (playerCapsule,  go.GetComponent<Collider2D> ());		//! box collider çarpışmasını yoksay
+			Physics2D.IgnoreCollision (playerBox, go.GetComponent<Collider2D> ());	//! circle collider çarpışmasını yoksay
 		}
 		myRigidbody.velocity = new Vector3(0, -10, 0);		//! yere inme hızı ver
 		yield return new WaitForSeconds (0.4f);			//!0.5 saniye bekle
 		foreach (GameObject go in tObjects) {		//! collider çarpışmalarını eski haline getir
-			Physics2D.IgnoreCollision (playerBox,  go.GetComponent<Collider2D> (), false);
-			Physics2D.IgnoreCollision (playerCircle, go.GetComponent<Collider2D> (), false);
+			Physics2D.IgnoreCollision (playerCapsule,  go.GetComponent<Collider2D> (), false);
+			Physics2D.IgnoreCollision (playerBox, go.GetComponent<Collider2D> (), false);
 		}
 	}
 
