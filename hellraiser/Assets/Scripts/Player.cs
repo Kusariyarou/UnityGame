@@ -36,6 +36,8 @@ public class Player : MonoBehaviour {
 
 	bool doubleJump = false;
 
+	private float crouch;
+	public bool crouching;
 
 
 
@@ -139,10 +141,7 @@ public class Player : MonoBehaviour {
 		myAnimator.SetFloat ("speed", Mathf.Abs(horizontal));
 
 	
-		if (GetComponent<Rigidbody2D> ().velocity.x == 0 && Input.GetAxis ("Vertical") == -1) 
-		{
-			myAnimator.SetTrigger ("Crouch");
-		} 
+
 		
 	}
 
@@ -193,6 +192,21 @@ public class Player : MonoBehaviour {
 		{
 			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
 		}
+			
+
+		if (Input.GetAxis ("Vertical") < 0)   // crocuh ture false yapma
+		{
+			crouching = true;
+		} else
+			crouching = false;
+
+		if (crouching && !this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch")) {
+			myAnimator.SetBool ("crouching", true);
+		} else if (!this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch"))
+		{
+			myAnimator.SetBool ("crouching", false);
+		}
+
 
 
 

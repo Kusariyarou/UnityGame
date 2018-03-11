@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\ColliderControl.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFade.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFadeFixedTime.cs" />
