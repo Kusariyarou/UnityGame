@@ -43,6 +43,8 @@ public class Player : MonoBehaviour {
 
 
 
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -68,11 +70,16 @@ public class Player : MonoBehaviour {
 				doubleJump = true;
 		}
 
-		if (grounded && Input.GetKeyDown (KeyCode.JoystickButton0))
+
+
+		if ((grounded || !doubleJump) && Input.GetKeyDown (KeyCode.JoystickButton0))
 		{
 			myAnimator.SetBool ("Ground", false);
 
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+
+			if (!doubleJump && !grounded)
+				doubleJump = true;
 		}
 
 
@@ -131,6 +138,12 @@ public class Player : MonoBehaviour {
 
 		myAnimator.SetFloat ("speed", Mathf.Abs(horizontal));
 
+	
+		if (GetComponent<Rigidbody2D> ().velocity.x == 0 && Input.GetAxis ("Vertical") == -1) 
+		{
+			myAnimator.SetTrigger ("Crouch");
+		} 
+		
 	}
 
 	private void HandleAttacks()
@@ -171,12 +184,15 @@ public class Player : MonoBehaviour {
 			roll = true;
 		}
 
-		if (Input.GetAxis ("Vertical") < 0 && canDown)  //! aşağı ok butonunu al
+		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetKeyDown (KeyCode.Space))  //! aşağı ok butonunu al
 		{
 			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
 		}
 
-
+		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetKeyDown (KeyCode.JoystickButton0))  //! aşağı ok butonunu al
+		{
+			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
+		}
 
 
 
