@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	CapsuleCollider2D playerCapsule;			//! player collider
 	BoxCollider2D playerBox;				//! crouch collider
 
+
 	private bool canDown = false;
 
 	private Rigidbody2D myRigidbody;
@@ -14,6 +15,9 @@ public class Player : MonoBehaviour {
 	private GameObject[] tObjects;		//! içinden geçilebilecek objelerin listesi
 
 	private Animator myAnimator;
+
+	[SerializeField]
+	private Transform bowPos;
 
 	[SerializeField]
 	private float movementSpeed;
@@ -38,16 +42,17 @@ public class Player : MonoBehaviour {
 
 	public bool crouching = false;
 
+	private bool bowattack;
 
-
-
-
-
+	[SerializeField]
+	private GameObject greenarrowPrefab;
 
 
 
 	// Use this for initialization
 	void Start () {
+
+		Physics2D.IgnoreLayerCollision (8, 9);
 
 		facingRight = true;
 		myRigidbody = GetComponent<Rigidbody2D> ();
@@ -61,7 +66,7 @@ public class Player : MonoBehaviour {
 	void Update()
 	{
 		
-		if ((grounded || !doubleJump) && Input.GetKeyDown (KeyCode.Space))
+		if ((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
 		{
 			myAnimator.SetBool ("Ground", false);
 
@@ -73,15 +78,6 @@ public class Player : MonoBehaviour {
 
 
 
-		if ((grounded || !doubleJump) && Input.GetKeyDown (KeyCode.JoystickButton0))
-		{
-			myAnimator.SetBool ("Ground", false);
-
-			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
-
-			if (!doubleJump && !grounded)
-				doubleJump = true;
-		}
 
 
 
@@ -123,7 +119,9 @@ public class Player : MonoBehaviour {
 	private void HandleMovement (float horizontal)
 	{
 		if (!myAnimator.GetBool("roll") && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
-			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall"))) 
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter") ||
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall")))
+
 		{
 			
 		
@@ -147,9 +145,19 @@ public class Player : MonoBehaviour {
 
 	private void HandleAttacks()
 	{
-		if (fastattack && myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("Attack"))
+		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Idle") || 
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter")))
 		{
 			myAnimator.SetTrigger ("lightattack");
+			myRigidbody.velocity = Vector2.zero;
+		}
+
+		if (bowattack && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Idle") || 
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter")))
+		{
+			myAnimator.SetTrigger ("BowAttack");
 			myRigidbody.velocity = Vector2.zero;
 		}
 
@@ -160,38 +168,29 @@ public class Player : MonoBehaviour {
 
 	private void HandleInput()
 	{
-		
 
+		if (Input.GetButtonDown ("Attack2")) 
+		{
+			bowattack = true;
+		}
 
-		if (Input.GetKeyDown (KeyCode.Mouse0)) 
+		if (Input.GetButtonDown ("Attack")) 
 		{
 			fastattack = true;
 		}
+			
 
-		if (Input.GetKeyDown (KeyCode.JoystickButton2))
-		{
-			fastattack = true;
-		}
-
-		if (Input.GetKeyDown (KeyCode.LeftControl))
+		if (Input.GetButtonDown ("Roll"))
 		{
 			roll = true;
 		}
+			
 
-		if (Input.GetKeyDown (KeyCode.JoystickButton1)) 
-		{
-			roll = true;
-		}
-
-		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetKeyDown (KeyCode.Space))  //! aşağı ok butonunu al
+		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetButtonDown ("Jump"))  //! aşağı ok butonunu al
 		{
 			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
 		}
-
-		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetKeyDown (KeyCode.JoystickButton0))  //! aşağı ok butonunu al
-		{
-			StartCoroutine ("JumpDown");		//! JumpDown' çalıştır.
-		}
+			
 			
 
 		if (Input.GetAxis ("Vertical") < 0)   // crouch true false yapma
@@ -231,6 +230,10 @@ public class Player : MonoBehaviour {
 
 		roll = false;
 
+		bowattack = false;
+
+
+
 
 	}
 
@@ -258,4 +261,28 @@ public class Player : MonoBehaviour {
 			canDown= false;
 
 	}
+
+
+
+	public void ThrowGreenBow (int value)
+	{
+		if (!grounded && value == 1 || grounded && value == 0) 
+		{
+
+			if (facingRight) 
+			{
+				GameObject tmp = (GameObject)Instantiate (greenarrowPrefab, bowPos.position, Quaternion.Euler (new Vector2 (0, 0)));
+				tmp.GetComponent<GreenArrow> ().Initialize (Vector2.right);
+			} else 
+			{
+				GameObject tmp = Instantiate (greenarrowPrefab, bowPos.position, Quaternion.Euler (new Vector2 (0, 180)));
+				tmp.GetComponent<GreenArrow> ().Initialize (Vector2.left);
+			}
+		}
+
+
+	}
+
+
+
 }
