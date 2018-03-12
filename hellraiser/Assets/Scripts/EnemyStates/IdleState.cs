@@ -23,7 +23,7 @@ public class IdleState : IEnemyState {
 
 		if (enemy.Target != null) 
 		{
-			enemy.ChangeState (new PatrolState ());
+			enemy.ChangeState (new RangedState ());
 		}
 	}
 

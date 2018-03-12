@@ -21,12 +21,18 @@ public class RangedState : IEnemyState {
 
 		if (enemy.Target != null) {
 
-			enemy.Move ();
+			canThrow = true;
+
+				
+
+
 
 		} else 
 		{
-			enemy.ChangeState (new IdleState ());
+			enemy.ChangeState (new PatrolState ());
 		}
+
+
 	}
 
 	public void Exit()
@@ -57,4 +63,5 @@ public class RangedState : IEnemyState {
 		
 		}
 	}
+		
 }
