@@ -1,11 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
 	CapsuleCollider2D playerCapsule;			//! player collider
 	BoxCollider2D playerBox;				//! crouch collider
+
+
+	private SpriteRenderer playerSprite;
+	public Material[] material;
+	Renderer rend;
+
+	public string pointString;
+
+	public float currentPoint = 0f; 
+
+	public Text pointText;
 
 
 	private bool canDown = false;
@@ -47,10 +59,42 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private GameObject greenarrowPrefab;
 
+	public int startingHealth = 100;
+
+	public int currentHeahlt;
+
+	public string healthString;
+
+	public Text healthText;
+
+
+
+
+
+	private bool flashActive;
+	public float flashLength;
+	private float flashCounter;
+
+
+	void Awake()
+	{
+		currentHeahlt = startingHealth;
+	}
+
+
+
+
 
 
 	// Use this for initialization
 	void Start () {
+		
+
+		playerSprite = GetComponent<SpriteRenderer> ();
+
+		rend = GetComponent<Renderer> ();
+		rend.enabled = true;
+		rend.sharedMaterial = material [0];
 
 		Physics2D.IgnoreLayerCollision (8, 9);
 
@@ -65,6 +109,52 @@ public class Player : MonoBehaviour {
 
 	void Update()
 	{
+		
+		if (flashActive) 
+		{
+			if (flashCounter > flashLength * .66f) {
+
+				playerSprite.color = new Color (playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+
+			} 
+			else if (flashCounter > flashLength * .33f) {
+				playerSprite.color = new Color (playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+				rend.sharedMaterial = material [1];
+			} 
+			else if (flashCounter > 0f) 
+			{
+				playerSprite.color = new Color (playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+
+			}
+			else  
+			{
+				playerSprite.color = new Color (playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+
+			
+				flashActive = false;
+				rend.sharedMaterial = material [0];
+			}
+
+			flashCounter -= Time.deltaTime;
+
+		
+		}
+
+		pointString = currentPoint.ToString ();
+		pointText.text = pointString;
+
+		healthString = currentHeahlt.ToString ();
+		healthText.text = healthString;
+
+		if (currentHeahlt <= 0) 
+		{
+			Physics2D.IgnoreLayerCollision (8, 10);
+			myAnimator.SetTrigger ("die");
+
+
+		}
+
+
 		
 		if ((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
 		{
@@ -90,6 +180,7 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		
 
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 
@@ -283,6 +374,51 @@ public class Player : MonoBehaviour {
 
 	}
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Pile") 
+		{
+			currentHeahlt = currentHeahlt - 10;
+			flashActive = true;
+			flashCounter = flashLength;
+
+
+		}
+		
+
+
+
+
+
+		if (other.gameObject.tag == "EnemyArrow") 
+		{
+			currentHeahlt = currentHeahlt - 14;
+			flashActive = true;
+			flashCounter = flashLength;
+
+
+		} 
+
+		if (other.gameObject.tag == "PointTag") 
+		{
+			currentPoint = currentPoint + 7f;
+
+
+
+		}
+
+
+	}
+
+
+
+
+
+
+
+
+
+		
 
 
 }

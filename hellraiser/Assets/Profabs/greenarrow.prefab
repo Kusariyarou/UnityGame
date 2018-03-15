@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212505489039648276}
   - component: {fileID: 114054939875356650}
   - component: {fileID: 50138611213479156}
-  m_Layer: 0
+  - component: {fileID: 61747873406357116}
+  m_Layer: 13
   m_Name: greenarrow
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,6 +63,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61747873406357116
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485374745130624}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8, y: 0.33}
+    newSize: {x: 0.8, y: 0.33}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.33}
+  m_EdgeRadius: 0
 --- !u!114 &114054939875356650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dc32c4b4307e64095f57a6f32fc8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  greenarrowDamage: 10
   speed: 10
 --- !u!212 &212505489039648276
 SpriteRenderer:

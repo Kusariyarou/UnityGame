@@ -51,7 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BlueArrow.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\ColliderControl.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -64,6 +66,9 @@
      <Compile Include="Assets\Scripts\GreenArrow.cs" />
      <Compile Include="Assets\Scripts\IgnoreCollision.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Point.cs" />
+     <Compile Include="Assets\Scripts\PointTriggerSkeleton.cs" />
+     <Compile Include="Assets\Scripts\SketelonHealth.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFade.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFadeFixedTime.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorGetLayerIndex.cs" />

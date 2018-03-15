@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
 
-
+	public GreenArrow greenarrowscript;
 
 	public Animator enemyAnimator;
 
@@ -38,6 +38,8 @@ public abstract class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+
+		
 	}
 
 	public void ChangeDirection ()
@@ -51,11 +53,11 @@ public abstract class Character : MonoBehaviour {
 		if (facingRight) 
 		{
 			GameObject tmp = (GameObject)Instantiate (greenarrowPrefab, bowPos.position, Quaternion.Euler (new Vector2 (0, 0)));
-			tmp.GetComponent<GreenArrow> ().Initialize (Vector2.right);
+			tmp.GetComponent<BlueArrow> ().Initialize (Vector2.left);
 		} else 
 		{
 			GameObject tmp = Instantiate (greenarrowPrefab, bowPos.position, Quaternion.Euler (new Vector2 (0, 180)));
-			tmp.GetComponent<GreenArrow> ().Initialize (Vector2.left);
+			tmp.GetComponent<BlueArrow> ().Initialize (Vector2.right);
 		}
 	}
 }

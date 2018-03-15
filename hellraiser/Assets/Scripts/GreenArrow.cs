@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class GreenArrow : MonoBehaviour {
 
+	public float greenarrowDamage = 10f; 
+
 	[SerializeField]
 	private float speed;
 
@@ -14,6 +16,11 @@ public class GreenArrow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
+
+		Physics2D.IgnoreLayerCollision (10, 13);
+
 
 		myRigidbody = GetComponent<Rigidbody2D> ();
 
@@ -41,4 +48,14 @@ public class GreenArrow : MonoBehaviour {
 		Destroy (gameObject);
 
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Skeleton") 
+		{
+			Destroy (gameObject);
+		}
+	}
+
+
 }

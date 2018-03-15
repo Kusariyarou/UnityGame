@@ -6,6 +6,12 @@ TagManager:
   tags:
   - DownThrough
   - Edge
+  - EnemyArrow
+  - Arrow
+  - Pile
+  - Skeleton
+  - PointTag
+  - Demon
   layers:
   - Default
   - TransparentFX
@@ -19,9 +25,9 @@ TagManager:
   - Skeleton
   - Sight
   - edge
-  - 
-  - 
-  - 
+  - tilemap
+  - greenarrow
+  - Demon
   - 
   - 
   - 

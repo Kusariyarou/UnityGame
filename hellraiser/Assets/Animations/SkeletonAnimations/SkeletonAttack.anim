@@ -21,7 +21,7 @@ AnimationClip:
     - time: 0
       value: {fileID: 21300000, guid: cdb8e80818ce8aa46ad10944598ee88d, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: e50739684ab06fa4ea1387ae7886be9c, type: 3}
+      value: {fileID: 21300000, guid: cdb8e80818ce8aa46ad10944598ee88d, type: 3}
     - time: 0.16666667
       value: {fileID: 21300000, guid: e819b61bed03c7a4bb689ab81c04ac7b, type: 3}
     - time: 0.25
@@ -64,7 +64,7 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: cdb8e80818ce8aa46ad10944598ee88d, type: 3}
-    - {fileID: 21300000, guid: e50739684ab06fa4ea1387ae7886be9c, type: 3}
+    - {fileID: 21300000, guid: cdb8e80818ce8aa46ad10944598ee88d, type: 3}
     - {fileID: 21300000, guid: e819b61bed03c7a4bb689ab81c04ac7b, type: 3}
     - {fileID: 21300000, guid: 1d6ba3b4afd97f14d823daa106ccc1e9, type: 3}
     - {fileID: 21300000, guid: 59ff44c512daca240927792bcebfac5a, type: 3}
@@ -101,4 +101,11 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.5833333
+    functionName: ThrowBow
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

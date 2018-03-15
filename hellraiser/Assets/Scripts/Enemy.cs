@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class Enemy : Character {
 
+
+
 	private IEnemyState currentState;
+
+
+
+
+	 
+
+
+
+
+
 
 	public GameObject Target {
 		get;
@@ -14,8 +26,20 @@ public class Enemy : Character {
 
 
 
+
+
+
+
+
+
 	// Use this for initialization
 	public void Start () {
+
+
+
+
+
+
 
 
 	
@@ -28,9 +52,22 @@ public class Enemy : Character {
 	// Update is called once per frame
 	void Update () {
 
-		currentState.Execute ();
 
-		LookAtTarget (); 
+
+
+
+
+			currentState.Execute ();
+
+			LookAtTarget (); 
+
+
+
+
+			
+
+
+
 	}
 
 	private void LookAtTarget()
@@ -85,11 +122,23 @@ public class Enemy : Character {
 	void OnTriggerEnter2D(Collider2D other)
 	{
 
-		currentState.OnTriggerEnter (other); 
+		currentState.OnTriggerEnter2D (other);
+
+
+
+
+
+
+
+
+
+
+	}
+			
 
 
 
 	}
 
 
-}
+
