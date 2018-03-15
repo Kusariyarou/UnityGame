@@ -13,6 +13,8 @@ public class PointTriggerSkeleton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
+
 		enemyC = GetComponent<Enemy> ();
 
 		death.enabled = false;

@@ -36,7 +36,7 @@ public class Enemy : Character {
 	public void Start () {
 
 
-
+		Physics2D.IgnoreLayerCollision (9, 14);
 
 
 

@@ -76,6 +76,7 @@ public class SketelonHealth : Character {
 			enemyAnimator.SetTrigger ("die");
 
 			Physics2D.IgnoreLayerCollision (9, 13);
+			Physics2D.IgnoreLayerCollision (9, 16);
 
 		}
 		if (skeletonHealth > 0f) 
@@ -100,6 +101,14 @@ public class SketelonHealth : Character {
 			flashActive = true;
 			flashCounter = flashLength;
 		}
+
+		if (other.gameObject.tag == "MeleeAttack") {
+			skeletonHealth -= playerScript.fastattackDamage;
+			flashActive = true;
+			flashCounter = flashLength;
+		}
+
+
 
 
 

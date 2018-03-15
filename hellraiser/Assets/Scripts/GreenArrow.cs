@@ -20,6 +20,7 @@ public class GreenArrow : MonoBehaviour {
 
 
 		Physics2D.IgnoreLayerCollision (10, 13);
+		Physics2D.IgnoreLayerCollision (13, 15);
 
 
 		myRigidbody = GetComponent<Rigidbody2D> ();

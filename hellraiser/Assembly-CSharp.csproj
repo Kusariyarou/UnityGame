@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Point.cs" />
      <Compile Include="Assets\Scripts\PointTriggerSkeleton.cs" />
+     <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\SketelonHealth.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFade.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFadeFixedTime.cs" />

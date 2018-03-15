@@ -19,7 +19,11 @@ public class EnemySight : MonoBehaviour {
 		{
 			enemy.Target = other.gameObject;
 
+			 
+
 		}
+
+
 
 
 	}

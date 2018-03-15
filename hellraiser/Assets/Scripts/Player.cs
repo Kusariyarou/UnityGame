@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
+
+	public float fastattackDamage = 17f;
+
+	public EdgeCollider2D FastAttackCollider;
+
 	CapsuleCollider2D playerCapsule;			//! player collider
 	BoxCollider2D playerBox;				//! crouch collider
 
@@ -88,7 +93,10 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+
+
+
 
 		playerSprite = GetComponent<SpriteRenderer> ();
 
@@ -97,6 +105,8 @@ public class Player : MonoBehaviour {
 		rend.sharedMaterial = material [0];
 
 		Physics2D.IgnoreLayerCollision (8, 9);
+		Physics2D.IgnoreLayerCollision (8, 14);
+		Physics2D.IgnoreLayerCollision (10, 16);
 
 		facingRight = true;
 		myRigidbody = GetComponent<Rigidbody2D> ();
@@ -236,13 +246,13 @@ public class Player : MonoBehaviour {
 
 	private void HandleAttacks()
 	{
-		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Idle") || 
-			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
-			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter")))
-		{
+		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
+		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
+		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("WalkCharacter"))) {
 			myAnimator.SetTrigger ("lightattack");
 			myRigidbody.velocity = Vector2.zero;
-		}
+
+		} 
 
 		if (bowattack && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Idle") || 
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
@@ -268,6 +278,8 @@ public class Player : MonoBehaviour {
 		if (Input.GetButtonDown ("Attack")) 
 		{
 			fastattack = true;
+
+
 		}
 			
 
@@ -345,6 +357,16 @@ public class Player : MonoBehaviour {
 		if (coll.gameObject.tag == "DownThrough")
 			canDown= true;
 
+		if (coll.gameObject.tag == "Mace") 
+		{
+
+			currentHeahlt = currentHeahlt - 13;
+			flashActive = true;
+			flashCounter = flashLength;
+
+		}
+		
+
 	}
 
 	void OnCollisionExit2D(Collision2D coll) {
@@ -374,6 +396,11 @@ public class Player : MonoBehaviour {
 
 	}
 
+	public void FastAttack()
+	{
+		FastAttackCollider.enabled = !FastAttackCollider.enabled;
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Pile") 
@@ -384,6 +411,8 @@ public class Player : MonoBehaviour {
 
 
 		}
+
+
 		
 
 

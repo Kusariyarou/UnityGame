@@ -24,6 +24,7 @@ public class PatrolState : IEnemyState {
 
 		if (enemy.Target != null) 
 		{
+			
 			enemy.ChangeState (new RangedState ());
 		}
 	}

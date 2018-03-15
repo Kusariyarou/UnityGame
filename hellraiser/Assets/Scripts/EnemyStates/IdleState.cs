@@ -25,6 +25,7 @@ public class IdleState : IEnemyState {
 		{
 			enemy.ChangeState (new RangedState ());
 		}
+
 	}
 
 	public void Exit()

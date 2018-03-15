@@ -12,6 +12,8 @@ TagManager:
   - Skeleton
   - PointTag
   - Demon
+  - Mace
+  - MeleeAttack
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - tilemap
   - greenarrow
   - Demon
-  - 
-  - 
+  - bluearrow
+  - meleeattack
   - 
   - 
   - 

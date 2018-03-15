@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
 
+	public Player playerScript; 
+
 	public GreenArrow greenarrowscript;
 
 	public Animator enemyAnimator;

@@ -7,7 +7,7 @@ public class RangedState : IEnemyState {
 	private Enemy enemy;
 
 	private float throwTimer;
-	private float throwCoolDown = 2;
+	private float throwCoolDown = 3f;
 	private bool canThrow;
 
 	public void Enter(Enemy enemy)
@@ -29,7 +29,7 @@ public class RangedState : IEnemyState {
 
 		} else 
 		{
-			enemy.ChangeState (new PatrolState ());
+			enemy.ChangeState (new IdleState ());
 		}
 
 
@@ -40,9 +40,10 @@ public class RangedState : IEnemyState {
 
 	}
 
-	public void OnTriggerEnter(Collider2D other)
+	public void OnTriggerEnter2D(Collider2D other)
 	{
 		
+			
 	}
 
 	private void ThrowBow()
@@ -53,7 +54,7 @@ public class RangedState : IEnemyState {
 		if (throwTimer >= throwCoolDown) 
 		{
 			canThrow = true;
-			throwTimer = 0; 
+			throwTimer = 0f; 
 		}
 
 		if (canThrow) 
@@ -64,12 +65,9 @@ public class RangedState : IEnemyState {
 		}
 	}
 
-	public void OnTriggerEnter2D(Collider2D other)
-	{
-		if(other.gameObject.tag == "Player")
-			canThrow = true;
 
-	}
+
+
 
 
 
