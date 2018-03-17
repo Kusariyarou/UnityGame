@@ -5,6 +5,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
+	private bool immortal = false;
+
+	[SerializeField]
+	private float immortalTime;
+
+	public GameObject playerJumpDust;
+
+	[SerializeField]
+	private float rollPower;
+
+	[SerializeField]
+	private Transform jumpDustPos; 
 
 	public float fastattackDamage = 17f;
 
@@ -41,7 +53,7 @@ public class Player : MonoBehaviour {
 
 	private bool fastattack;
 
-	private bool roll;
+	private bool rolling;
 
 	private bool facingRight;
 
@@ -122,6 +134,9 @@ public class Player : MonoBehaviour {
 		
 		if (flashActive) 
 		{
+			Physics2D.IgnoreLayerCollision (8, 16);
+			Physics2D.IgnoreLayerCollision (8, 15);
+
 			if (flashCounter > flashLength * .66f) {
 
 				playerSprite.color = new Color (playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
@@ -143,6 +158,14 @@ public class Player : MonoBehaviour {
 			
 				flashActive = false;
 				rend.sharedMaterial = material [0];
+				foreach (GameObject go in tObjects) 
+				{
+					Physics2D.IgnoreLayerCollision( 8, 16 , false); 
+				
+					Physics2D.IgnoreLayerCollision (8, 15 , false);
+
+					
+				}
 			}
 
 			flashCounter -= Time.deltaTime;
@@ -159,6 +182,7 @@ public class Player : MonoBehaviour {
 		if (currentHeahlt <= 0) 
 		{
 			Physics2D.IgnoreLayerCollision (8, 10);
+
 			myAnimator.SetTrigger ("die");
 
 
@@ -168,12 +192,14 @@ public class Player : MonoBehaviour {
 		
 		if ((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
 		{
+			Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
 			myAnimator.SetBool ("Ground", false);
 
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 
 			if (!doubleJump && !grounded)
 				doubleJump = true;
+			
 		}
 
 
@@ -192,12 +218,14 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		
 
+
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 
 		myAnimator.SetBool ("Ground", grounded);
 
 		if (grounded)
 			doubleJump = false;
+	
 
 		myAnimator.SetFloat ("vSpeed", GetComponent<Rigidbody2D> ().velocity.y);
 
@@ -209,19 +237,19 @@ public class Player : MonoBehaviour {
 
 
 
-		Flip (horizontal);
+		Flip (horizontal); 
 
-		HandleAttacks ();
+		HandleAttacks (); 
 
-		ResetValues ();
+		ResetValues (); 
 	}
 
 
 	private void HandleMovement (float horizontal)
 	{
-		if (!myAnimator.GetBool("roll") && (myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
+		if ((myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter") ||
-			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall")))
+			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall"))) 
 
 		{
 			
@@ -229,12 +257,9 @@ public class Player : MonoBehaviour {
 			myRigidbody.velocity = new Vector2 (horizontal * movementSpeed, myRigidbody.velocity.y);
 		}
 
-		if (roll && !this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Roll")) {
-			myAnimator.SetBool ("roll", true);
-		} else if (!this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Roll"))
-		{
-			myAnimator.SetBool ("roll", false);
-		}
+
+
+
 
 
 		myAnimator.SetFloat ("speed", Mathf.Abs(horizontal));
@@ -246,6 +271,25 @@ public class Player : MonoBehaviour {
 
 	private void HandleAttacks()
 	{
+		if (rolling && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
+			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
+			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("WalkCharacter"))) {
+			myAnimator.SetTrigger ("dodge");
+			myRigidbody.velocity = Vector2.zero; 
+			if (facingRight) {
+				myRigidbody.AddForce (new Vector2 (1, 0) * rollPower);
+			} else 
+			{
+				myRigidbody.AddForce (new Vector2(-1, 0) * rollPower);
+			}
+
+		}
+
+
+	
+			
+
+
 		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
 		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
 		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("WalkCharacter"))) {
@@ -284,8 +328,10 @@ public class Player : MonoBehaviour {
 			
 
 		if (Input.GetButtonDown ("Roll"))
+
 		{
-			roll = true;
+			
+			rolling = true;
 		}
 			
 
@@ -331,7 +377,7 @@ public class Player : MonoBehaviour {
 
 		fastattack = false;
 
-		roll = false;
+		rolling = false;
 
 		bowattack = false;
 
@@ -365,6 +411,11 @@ public class Player : MonoBehaviour {
 			flashCounter = flashLength;
 
 		}
+
+		if (coll.gameObject.tag == "tile") 
+		{
+			Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
+		}
 		
 
 	}
@@ -372,6 +423,7 @@ public class Player : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D coll) {
 		if (coll.gameObject.tag == "DownThrough")
 			canDown= false;
+		
 
 	}
 
@@ -430,11 +482,20 @@ public class Player : MonoBehaviour {
 
 		if (other.gameObject.tag == "PointTag") 
 		{
-			currentPoint = currentPoint + 7f;
+			currentPoint = currentPoint + 7; 
 
 
 
 		}
+
+		if (other.gameObject.tag == "DemonAttack") 
+		{
+			currentHeahlt = currentHeahlt - 20;
+			flashActive = true;
+			flashCounter = flashLength;
+
+
+		} 
 
 
 	}

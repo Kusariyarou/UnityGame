@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SketelonHealth : Character {
 
+
+	public GameObject blood;
+
 	  
 	CapsuleCollider2D skeletonCapsule;
 
@@ -72,7 +75,7 @@ public class SketelonHealth : Character {
 
 		if (skeletonHealth <= 0f) 
 		{
-
+			
 			enemyAnimator.SetTrigger ("die");
 
 			Physics2D.IgnoreLayerCollision (9, 13);
@@ -97,12 +100,15 @@ public class SketelonHealth : Character {
 
 
 		if (other.gameObject.tag == "Arrow") {
+
+			Instantiate (blood, transform.position, Quaternion.identity);
 			skeletonHealth -= greenarrowscript.greenarrowDamage;
 			flashActive = true;
 			flashCounter = flashLength;
 		}
 
 		if (other.gameObject.tag == "MeleeAttack") {
+			Instantiate (blood, transform.position, Quaternion.identity);
 			skeletonHealth -= playerScript.fastattackDamage;
 			flashActive = true;
 			flashCounter = flashLength;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Character {
 
-
+	public SketelonHealth skeletonsc; 
 
 	private IEnemyState currentState;
 
@@ -39,10 +39,10 @@ public class Enemy : Character {
 		Physics2D.IgnoreLayerCollision (9, 14);
 
 
+		 
 
 
 
-	
 
 		ChangeState (new IdleState ());
 	}
@@ -51,6 +51,11 @@ public class Enemy : Character {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (skeletonsc.skeletonHealth <= 0) 
+		{
+			movementSpeed = 0;
+		}
 
 
 

@@ -56,7 +56,15 @@ public class GreenArrow : MonoBehaviour {
 		{
 			Destroy (gameObject);
 		}
+
+		if (other.gameObject.tag == "Demon") 
+		{
+			Destroy (gameObject);
+		}
 	}
+
+
+
 
 
 }

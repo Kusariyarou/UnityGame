@@ -8,11 +8,13 @@ public class IdleState : IEnemyState {
 
 	private float idleTimer;
 
-	private float idleDuration = 5;
+	private float idleDuration;
 
 	public void Enter(Enemy enemy)
 	{
 		this.enemy = enemy;
+
+		idleDuration = UnityEngine.Random.Range (1, 10);
 	}
 
 	public void Execute()
@@ -24,6 +26,8 @@ public class IdleState : IEnemyState {
 		if (enemy.Target != null) 
 		{
 			enemy.ChangeState (new RangedState ());
+
+
 		}
 
 	}

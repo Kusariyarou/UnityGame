@@ -8,6 +8,8 @@ public class PointTriggerSkeleton : MonoBehaviour {
 
 	public SketelonHealth enemyscript;
 
+
+
 	Enemy enemyC;
 
 	// Use this for initialization
@@ -28,6 +30,12 @@ public class PointTriggerSkeleton : MonoBehaviour {
 		{
 			death.enabled = true;
 		}
+
+
+
+
+
+
 		
 	}
 

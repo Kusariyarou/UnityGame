@@ -19,17 +19,20 @@ public class RangedState : IEnemyState {
 	{
 		ThrowBow ();
 
-		if (enemy.Target != null) {
+		if (enemy.Target != null) 
+		{
+
+		}
 
 
 
 				
 
 
-
-		} else 
+		else 
+		
 		{
-			enemy.ChangeState (new IdleState ());
+			enemy.ChangeState (new PatrolState ());
 		}
 
 
@@ -48,7 +51,7 @@ public class RangedState : IEnemyState {
 
 	private void ThrowBow()
 	{
-
+		enemy.enemyAnimator.SetFloat ("speed", 0);
 		throwTimer += Time.deltaTime;
 
 		if (throwTimer >= throwCoolDown) 
