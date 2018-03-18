@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4923814338489676}
   - component: {fileID: 212728822108458424}
+  - component: {fileID: 60352913890753808}
   m_Layer: 0
   m_Name: mace
   m_TagString: Untagged
@@ -33,13 +34,62 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1772323535725166}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.791492, y: -19.520895, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0020426535, w: 0.9999979}
+  m_LocalPosition: {x: -0.016002655, y: 1.1741047, z: 0.029266577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.23400001}
+--- !u!60 &60352913890753808
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772323535725166}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.66, y: 2.35}
+    newSize: {x: 0.66, y: 2.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.049999997, y: 0.475}
+      - {x: 0.11, y: 0.48499998}
+      - {x: 0.21, y: 0.53499997}
+      - {x: 0.32, y: 0.695}
+      - {x: 0.32999998, y: 0.705}
+      - {x: 0.32999998, y: 0.98499995}
+      - {x: 0.29999998, y: 1.0649999}
+      - {x: 0.19999999, y: 1.165}
+      - {x: 0.16, y: 1.175}
+      - {x: -0.22, y: 1.175}
+      - {x: -0.24, y: 1.125}
+      - {x: -0.32, y: 1.0649999}
+      - {x: -0.32999998, y: 1.025}
+      - {x: -0.32999998, y: 0.645}
+      - {x: -0.29, y: 0.635}
+      - {x: -0.24, y: 0.555}
+      - {x: -0.13, y: 0.48499998}
+      - {x: -0.07, y: 0.465}
+      - {x: -0.08, y: 0.325}
+      - {x: -0.06, y: -1.135}
+      - {x: -0.04, y: -1.175}
+      - {x: 0.03, y: -1.175}
+      - {x: 0.07, y: -1.145}
+      - {x: 0.06, y: -0.865}
+      - {x: 0.049999997, y: -0.575}
 --- !u!212 &212728822108458424
 SpriteRenderer:
   m_ObjectHideFlags: 1

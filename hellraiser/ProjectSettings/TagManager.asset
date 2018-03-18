@@ -5,6 +5,20 @@ TagManager:
   serializedVersion: 2
   tags:
   - DownThrough
+  - Edge
+  - EnemyArrow
+  - Arrow
+  - Pile
+  - Skeleton
+  - PointTag
+  - Demon
+  - Mace
+  - MeleeAttack
+  - DustParticle
+  - StreakParticle
+  - LaserFlashParticle
+  - tile
+  - DemonAttack
   layers:
   - Default
   - TransparentFX
@@ -15,14 +29,14 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Skeleton
+  - Sight
+  - edge
+  - tilemap
+  - greenarrow
+  - Demon
+  - bluearrow
+  - meleeattack
   - 
   - 
   - 
@@ -41,4 +55,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Flash
+    uniqueID: 406497845
     locked: 0
