@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Fonts\Script\scriptTexttest.cs" />
+     <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Scripts\BlueArrow.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
@@ -78,6 +80,7 @@
      <Compile Include="Assets\Scripts\PointTriggerSkeleton.cs" />
      <Compile Include="Assets\Scripts\Rotate.cs" />
      <Compile Include="Assets\Scripts\SketelonHealth.cs" />
+     <Compile Include="Assets\SkullFire.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFade.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorCrossFadeFixedTime.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Actions\Animation\Animator\uScriptAct_AnimatorGetLayerIndex.cs" />
@@ -924,7 +927,10 @@
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Events\uScript_Update.cs" />
      <Compile Include="Assets\uScript_PLE\uScriptRuntime\Nodes\Events\uScript_Visibility.cs" />
      <Compile Include="Assets\uScriptProjectFiles\uScriptUserTypes.cs" />
+     <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
      <None Include="Assets\uScript_PLE\ReadMe.txt" />
+     <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
+     <None Include="Assets\Pixel Font - Tripfive\_README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
