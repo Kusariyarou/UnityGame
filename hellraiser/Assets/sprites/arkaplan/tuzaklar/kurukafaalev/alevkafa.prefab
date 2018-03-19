@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1565663242592800}
   m_IsPrefabParent: 1
+--- !u!1 &1420581683385504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4153152585927878}
+  m_Layer: 0
+  m_Name: FireBallPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1565663242592800
 GameObject:
   m_ObjectHideFlags: 0
@@ -21,6 +36,7 @@ GameObject:
   - component: {fileID: 4525576998270002}
   - component: {fileID: 212533765299292304}
   - component: {fileID: 95834421117662230}
+  - component: {fileID: 114317012438123852}
   m_Layer: 0
   m_Name: alevkafa
   m_TagString: Untagged
@@ -28,6 +44,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4153152585927878
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420581683385504}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.012838125, y: -0.15636396, z: -0.39509648}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4525576998270002}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4525576998270002
 Transform:
   m_ObjectHideFlags: 1
@@ -35,9 +64,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1565663242592800}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 46.39651, y: -18.15864, z: -0.16242492}
+  m_LocalPosition: {x: -6.47, y: 3.6773639, z: -0.16242492}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4153152585927878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,6 +88,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114317012438123852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565663242592800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864f8264a5145b9418b14f2f5c32dbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitingTime: 3
+  fireballPos: {fileID: 4153152585927878}
+  fireballPrefab: {fileID: 1057639325661516, guid: 6ce1f99a67aa0064aabcc26bf062612f,
+    type: 2}
 --- !u!212 &212533765299292304
 SpriteRenderer:
   m_ObjectHideFlags: 1

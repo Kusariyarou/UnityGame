@@ -51,7 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DeadPoint.cs" />
+     <Compile Include="Assets\DeathScreen.cs" />
+     <Compile Include="Assets\FireBall.cs" />
      <Compile Include="Assets\Fonts\Script\scriptTexttest.cs" />
+     <Compile Include="Assets\JumpDust.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Scripts\BlueArrow.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -75,6 +79,7 @@
      <Compile Include="Assets\Scripts\EnemyStates\RangedState.cs" />
      <Compile Include="Assets\Scripts\GreenArrow.cs" />
      <Compile Include="Assets\Scripts\IgnoreCollision.cs" />
+     <Compile Include="Assets\Scripts\menu scripts\DeadScreenMenu.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Point.cs" />
      <Compile Include="Assets\Scripts\PointTriggerSkeleton.cs" />

@@ -93,6 +93,9 @@ public class Player : MonoBehaviour {
 	private float flashCounter;
 
 
+
+
+
 	void Awake()
 	{
 		currentHeahlt = startingHealth;
@@ -116,6 +119,7 @@ public class Player : MonoBehaviour {
 		rend.enabled = true;
 		rend.sharedMaterial = material [0];
 
+		Physics2D.IgnoreLayerCollision (4, 8);
 		Physics2D.IgnoreLayerCollision (8, 9);
 		Physics2D.IgnoreLayerCollision (8, 14);
 		Physics2D.IgnoreLayerCollision (10, 16);
@@ -184,6 +188,9 @@ public class Player : MonoBehaviour {
 			Physics2D.IgnoreLayerCollision (8, 10);
 
 			myAnimator.SetTrigger ("die");
+			jumpForce = 0;
+
+
 
 
 		}
@@ -192,7 +199,10 @@ public class Player : MonoBehaviour {
 		
 		if ((grounded || !doubleJump) && Input.GetButtonDown ("Jump"))
 		{
-			Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
+			if (currentHeahlt > 0) 
+			{
+				Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
+			}
 			myAnimator.SetBool ("Ground", false);
 
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
@@ -359,16 +369,16 @@ public class Player : MonoBehaviour {
 
 	private void Flip (float horizontal)
 	{
+		if (currentHeahlt > 0) {
+			if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight) {
+				facingRight = !facingRight;
 
-		if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight) 
-		{
-			facingRight = !facingRight;
+				Vector3 theScale = transform.localScale;
 
-			Vector3 theScale = transform.localScale;
+				theScale.x *= -1;
 
-			theScale.x *= -1;
-
-			transform.localScale = theScale;
+				transform.localScale = theScale;
+			}
 		}
 	}
 
@@ -412,10 +422,9 @@ public class Player : MonoBehaviour {
 
 		}
 
-		if (coll.gameObject.tag == "tile") 
-		{
-			Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
-		}
+
+			
+
 		
 
 	}
@@ -423,6 +432,8 @@ public class Player : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D coll) {
 		if (coll.gameObject.tag == "DownThrough")
 			canDown= false;
+
+
 		
 
 	}
@@ -473,7 +484,7 @@ public class Player : MonoBehaviour {
 
 		if (other.gameObject.tag == "EnemyArrow") 
 		{
-			currentHeahlt = currentHeahlt - 14;
+			currentHeahlt = currentHeahlt - 12;
 			flashActive = true;
 			flashCounter = flashLength;
 
@@ -490,7 +501,7 @@ public class Player : MonoBehaviour {
 
 		if (other.gameObject.tag == "DemonAttack") 
 		{
-			currentHeahlt = currentHeahlt - 20;
+			currentHeahlt = currentHeahlt - 15;
 			flashActive = true;
 			flashCounter = flashLength;
 

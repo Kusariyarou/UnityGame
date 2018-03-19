@@ -15,7 +15,7 @@ public class PointTriggerSkeleton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
+		Physics2D.IgnoreLayerCollision (4, 10);
 
 		enemyC = GetComponent<Enemy> ();
 

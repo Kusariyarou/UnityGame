@@ -8,11 +8,21 @@ public class SkullFire : MonoBehaviour {
 
 	float timer;
 
-	int waitingTime = 5; 
+	public float waitingTime = 5f; 
+
+	private bool facingdown;
+
+	[SerializeField]
+	private Transform fireballPos;
+
+	[SerializeField]
+	private GameObject fireballPrefab;
 
 	// Use this for initialization
 	void Start () {
 		 
+		facingdown = true;
+
 		skullAnimator = GetComponent<Animator>();
 	}
 	
@@ -26,6 +36,20 @@ public class SkullFire : MonoBehaviour {
 		}
 		
 	}
+
+	public void FireBallThrow (int value)
+	{
+		
+
+		if (facingdown) {
+			GameObject tmp = (GameObject)Instantiate (fireballPrefab, fireballPos.position, Quaternion.Euler (new Vector2 (0, 0)));
+			tmp.GetComponent<FireBall> ().Initialize (Vector2.down);  
+		} 
+
+	}
+
+
+
 
 
 

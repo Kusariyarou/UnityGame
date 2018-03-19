@@ -19,6 +19,7 @@ TagManager:
   - LaserFlashParticle
   - tile
   - DemonAttack
+  - jumpdust
   layers:
   - Default
   - TransparentFX

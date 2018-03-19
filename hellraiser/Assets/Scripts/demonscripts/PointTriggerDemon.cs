@@ -15,7 +15,7 @@ public class PointTriggerDemon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
+		Physics2D.IgnoreLayerCollision (4, 10);
 		enemyD = GetComponent<EnemyDemon> ();
 
 		death.enabled = false;
