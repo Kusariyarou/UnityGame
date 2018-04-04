@@ -8,7 +8,7 @@ public class Enemy : Character {
 
 	private IEnemyState currentState;
 
-
+	public AudioClip bowstring;
 
 
 	 

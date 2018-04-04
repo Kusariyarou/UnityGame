@@ -8,7 +8,7 @@ public class MeleeStateDemon : IEnemyStateDemon {
 
 	private float attackTimer;
 
-	private float attackCoolDown;
+	private float attackCoolDown = 3;
 
 	private bool canAttack; 
 
@@ -22,14 +22,9 @@ public class MeleeStateDemon : IEnemyStateDemon {
 	public void Execute()
 	{
 
-		DemonMeleeAttack (); 
-
+		DemonMeleeAttack ();
 		if (enemy.Target != null) {
-
-
-
-
-
+			 
 
 
 		} else 
@@ -52,6 +47,7 @@ public class MeleeStateDemon : IEnemyStateDemon {
 
 	private void DemonMeleeAttack()
 	{
+		enemy.enemyAnimator.SetFloat ("speed", 0);
 		attackTimer += Time.deltaTime; 
 
 		if (attackTimer >= attackCoolDown)  

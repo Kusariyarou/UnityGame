@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-	private bool immortal = false;
+	SoundManager smanager;
 
-	[SerializeField]
-	private float immortalTime;
+	public AudioClip moveSound1;
+	public AudioClip moveSound2;
+	public AudioClip bowstring;
+	public AudioClip jumpSound;
+	public AudioClip swordSound;
+	public AudioClip rollsound;
+	public AudioClip yellsound;
+	public AudioClip hitsound;
 
+
+	public GameObject blood;
 	public GameObject playerJumpDust;
 
 	[SerializeField]
@@ -18,7 +26,10 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private Transform jumpDustPos; 
 
-	public float fastattackDamage = 17f;
+
+	public float fastattackDamage;
+
+	public float maxFastAttackDamage = 10f;
 
 	public EdgeCollider2D FastAttackCollider;
 
@@ -49,7 +60,7 @@ public class Player : MonoBehaviour {
 	private Transform bowPos;
 
 	[SerializeField]
-	private float movementSpeed;
+	public float movementSpeed;
 
 	private bool fastattack;
 
@@ -96,10 +107,6 @@ public class Player : MonoBehaviour {
 
 
 
-	void Awake()
-	{
-		currentHeahlt = startingHealth;
-	}
 
 
 
@@ -109,16 +116,23 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		AudioListener.pause = false;
+
+		InvokeRepeating ("PlaySound", 0.0f, 0.5f);
+
+		currentHeahlt = startingHealth;
+
+		fastattackDamage = maxFastAttackDamage;
 
 
-
-
+		Physics2D.IgnoreLayerCollision (8, 10, false); 
 		playerSprite = GetComponent<SpriteRenderer> ();
 
 		rend = GetComponent<Renderer> ();
 		rend.enabled = true;
 		rend.sharedMaterial = material [0];
 
+		Physics2D.IgnoreLayerCollision (4, 14);
 		Physics2D.IgnoreLayerCollision (4, 8);
 		Physics2D.IgnoreLayerCollision (8, 9);
 		Physics2D.IgnoreLayerCollision (8, 14);
@@ -186,7 +200,6 @@ public class Player : MonoBehaviour {
 		if (currentHeahlt <= 0) 
 		{
 			Physics2D.IgnoreLayerCollision (8, 10);
-
 			myAnimator.SetTrigger ("die");
 			jumpForce = 0;
 
@@ -201,6 +214,7 @@ public class Player : MonoBehaviour {
 		{
 			if (currentHeahlt > 0) 
 			{
+				SoundManager.instance.PlaySingle (jumpSound);
 				Instantiate (playerJumpDust, jumpDustPos.position, Quaternion.identity);
 			}
 			myAnimator.SetBool ("Ground", false);
@@ -211,11 +225,7 @@ public class Player : MonoBehaviour {
 				doubleJump = true;
 			
 		}
-
-
-
-
-
+			
 
 
 		HandleInput ();
@@ -257,14 +267,15 @@ public class Player : MonoBehaviour {
 
 	private void HandleMovement (float horizontal)
 	{
+		
 		if ((myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter") ||
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName("JumpAndFall"))) 
 
 		{
 			
-		
 			myRigidbody.velocity = new Vector2 (horizontal * movementSpeed, myRigidbody.velocity.y);
+
 		}
 
 
@@ -284,6 +295,7 @@ public class Player : MonoBehaviour {
 		if (rolling && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
 			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
 			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("WalkCharacter"))) {
+			SoundManager.instance.PlaySingle (rollsound);
 			myAnimator.SetTrigger ("dodge");
 			myRigidbody.velocity = Vector2.zero; 
 			if (facingRight) {
@@ -303,6 +315,8 @@ public class Player : MonoBehaviour {
 		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
 		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
 		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("WalkCharacter"))) {
+			SoundManager.instance.PlaySingle (swordSound);
+			SoundManager.instance2.PlaySingle2 (yellsound);
 			myAnimator.SetTrigger ("lightattack");
 			myRigidbody.velocity = Vector2.zero;
 
@@ -312,6 +326,7 @@ public class Player : MonoBehaviour {
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("Run") ||
 			myAnimator.GetCurrentAnimatorStateInfo(0).IsName ("WalkCharacter")))
 		{
+			SoundManager.instance.PlaySingle (bowstring);
 			myAnimator.SetTrigger ("BowAttack");
 			myRigidbody.velocity = Vector2.zero;
 		}
@@ -326,11 +341,13 @@ public class Player : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Attack2")) 
 		{
+			
 			bowattack = true;
 		}
 
 		if (Input.GetButtonDown ("Attack")) 
 		{
+			
 			fastattack = true;
 
 
@@ -363,6 +380,7 @@ public class Player : MonoBehaviour {
 		{
 			myAnimator.SetBool ("crouching", false);
 		}
+			
 
 	}
 
@@ -396,6 +414,18 @@ public class Player : MonoBehaviour {
 
 	}
 
+	void PlaySound()
+	{
+		if (grounded && Input.GetAxis("Horizontal") != 0 && !(myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch") ||
+			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Bow") ||
+			myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Lightsword")))
+			{
+			
+			SoundManager.instance.PlaySingle (moveSound1); 
+
+			}
+	}
+
 	private IEnumerator JumpDown(){
 		foreach (GameObject go in tObjects) {		//! İçinden geçilebilir objeler için
 			Physics2D.IgnoreCollision (playerCapsule,  go.GetComponent<Collider2D> ());		//! box collider çarpışmasını yoksay
@@ -415,10 +445,13 @@ public class Player : MonoBehaviour {
 
 		if (coll.gameObject.tag == "Mace") 
 		{
-
+			HealthBarScript.health -= 13f;
 			currentHeahlt = currentHeahlt - 13;
 			flashActive = true;
 			flashCounter = flashLength;
+			Instantiate (blood, transform.position, Quaternion.identity);
+			SoundManager.instance2.PlaySingle2 (hitsound);
+
 
 		}
 
@@ -471,55 +504,50 @@ public class Player : MonoBehaviour {
 			currentHeahlt = currentHeahlt - 10;
 			flashActive = true;
 			flashCounter = flashLength;
-
+			Instantiate (blood, transform.position, Quaternion.identity);
+			HealthBarScript.health -= 10f;
+			SoundManager.instance2.PlaySingle2 (hitsound);
 
 		}
-
-
-		
-
-
-
-
-
 		if (other.gameObject.tag == "EnemyArrow") 
 		{
 			currentHeahlt = currentHeahlt - 12;
 			flashActive = true;
 			flashCounter = flashLength;
-
+			Instantiate (blood, transform.position, Quaternion.identity);
+			HealthBarScript.health -= 12f;
+			SoundManager.instance2.PlaySingle2 (hitsound);
 
 		} 
 
 		if (other.gameObject.tag == "PointTag") 
 		{
 			currentPoint = currentPoint + 7; 
-
-
-
 		}
 
 		if (other.gameObject.tag == "DemonAttack") 
 		{
+			currentHeahlt = currentHeahlt - 12;
+			flashActive = true;
+			flashCounter = flashLength;
+			Instantiate (blood, transform.position, Quaternion.identity);
+			HealthBarScript.health -= 12f;
+			SoundManager.instance2.PlaySingle2 (hitsound);
+		
+		} 
+
+		if (other.gameObject.tag == "AsmodeusAttack") 
+		{
 			currentHeahlt = currentHeahlt - 15;
 			flashActive = true;
 			flashCounter = flashLength;
+			Instantiate (blood, transform.position, Quaternion.identity);
+			HealthBarScript.health -= 15f;
+			SoundManager.instance2.PlaySingle2 (hitsound);
 
-
-		} 
-
+		}
+			
 
 	}
-
-
-
-
-
-
-
-
-
-		
-
 
 }

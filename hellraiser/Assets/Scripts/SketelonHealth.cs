@@ -7,6 +7,7 @@ public class SketelonHealth : Character {
 
 	public GameObject blood;
 
+	public AudioClip damageSound;
 	  
 	CapsuleCollider2D skeletonCapsule;
 
@@ -29,7 +30,8 @@ public class SketelonHealth : Character {
 	void Start () {
 
 
-
+		Physics2D.IgnoreLayerCollision (9, 13, false);
+		Physics2D.IgnoreLayerCollision (9, 16, false);
 
 
 		playerSprite = GetComponent<SpriteRenderer> ();
@@ -84,7 +86,8 @@ public class SketelonHealth : Character {
 		}
 		if (skeletonHealth > 0f) 
 		{
-			
+			Physics2D.IgnoreLayerCollision (9, 13, false);
+			Physics2D.IgnoreLayerCollision (9, 16, false);
 
 		}
 
@@ -105,6 +108,8 @@ public class SketelonHealth : Character {
 			skeletonHealth -= greenarrowscript.greenarrowDamage;
 			flashActive = true;
 			flashCounter = flashLength;
+			SoundManager.instance3.PlaySingleEnemy (damageSound);
+
 		}
 
 		if (other.gameObject.tag == "MeleeAttack") {
@@ -112,6 +117,7 @@ public class SketelonHealth : Character {
 			skeletonHealth -= playerScript.fastattackDamage;
 			flashActive = true;
 			flashCounter = flashLength;
+			SoundManager.instance3.PlaySingleEnemy (damageSound);
 		}
 
 

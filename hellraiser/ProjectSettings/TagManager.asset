@@ -20,6 +20,9 @@ TagManager:
   - tile
   - DemonAttack
   - jumpdust
+  - finishPoint
+  - Asmodeus
+  - AsmodeusAttack
   layers:
   - Default
   - TransparentFX

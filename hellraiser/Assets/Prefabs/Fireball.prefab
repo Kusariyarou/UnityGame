@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58340063184373810}
   m_Layer: 0
   m_Name: Fireball
-  m_TagString: Untagged
+  m_TagString: Pile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,8 +118,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.9632353, g: 0.63743514, b: 0.1487349, a: 1}
-  m_Intensity: 8.44
-  m_Range: 1
+  m_Intensity: 7.25
+  m_Range: 1.5
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:

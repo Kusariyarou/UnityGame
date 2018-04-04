@@ -10,6 +10,7 @@ public class RangedState : IEnemyState {
 	private float throwCoolDown = 3f;
 	private bool canThrow;
 
+
 	public void Enter(Enemy enemy)
 	{
 		this.enemy = enemy;
@@ -23,10 +24,6 @@ public class RangedState : IEnemyState {
 		{
 
 		}
-
-
-
-				
 
 
 		else 
@@ -63,7 +60,8 @@ public class RangedState : IEnemyState {
 		if (canThrow) 
 		{
 			canThrow = false;
-			enemy.enemyAnimator.SetTrigger ("BowAttack"); 
+			enemy.enemyAnimator.SetTrigger ("BowAttack");
+			SoundManager.instance.PlaySingle (enemy.bowstring);
 		
 		}
 	}

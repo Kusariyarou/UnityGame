@@ -15,7 +15,7 @@ public class DeadScreenMenu : MonoBehaviour {
 
 	public void Restart()
 	{
-		SceneManager.LoadScene ("level1-1");
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 
 
 	}

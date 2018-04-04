@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DemonHealth : Character {
 
-	  
+	public AudioClip damageSound;  
 	public GameObject blood;
 
 	CapsuleCollider2D skeletonCapsule;
@@ -29,7 +29,8 @@ public class DemonHealth : Character {
 
 
 
-
+		Physics2D.IgnoreLayerCollision (14, 13, false);
+		Physics2D.IgnoreLayerCollision (14, 16, false);
 
 		playerSprite = GetComponent<SpriteRenderer> ();
 
@@ -74,7 +75,7 @@ public class DemonHealth : Character {
 
 		if (demonHealth <= 0f) 
 		{
-
+			
 			enemyAnimator.SetTrigger ("die");
 
 			Physics2D.IgnoreLayerCollision (14, 13);
@@ -83,7 +84,8 @@ public class DemonHealth : Character {
 		}
 		if (demonHealth > 0f) 
 		{
-			
+			Physics2D.IgnoreLayerCollision (14, 13, false);
+			Physics2D.IgnoreLayerCollision (14, 16, false);
 
 		}
 
@@ -104,6 +106,8 @@ public class DemonHealth : Character {
 			demonHealth -= greenarrowscript.greenarrowDamage;
 			flashActive = true;
 			flashCounter = flashLength;
+			SoundManager.instance3.PlaySingleEnemy (damageSound);
+
 		}
 
 		if (other.gameObject.tag == "MeleeAttack") {
@@ -111,6 +115,8 @@ public class DemonHealth : Character {
 			demonHealth -= playerScript.fastattackDamage;
 			flashActive = true;
 			flashCounter = flashLength;
+			SoundManager.instance3.PlaySingleEnemy (damageSound);
+
 		}
 
 
