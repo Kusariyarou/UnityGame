@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
+	public Player playerScript;
+
+	public AudioSource deathSource;
 	public AudioSource efxenemySource;
 	public AudioSource efx2Source;
 	public AudioSource efxSource;
@@ -16,6 +19,12 @@ public class SoundManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+
+		deathSource.enabled = false;
+		efxSource.enabled = true;
+		efx2Source.enabled = true;
+		efxenemySource.enabled = true;
+		musicSource.enabled = true;
 
 		if (instance == null)
 			instance = this;
@@ -34,6 +43,18 @@ public class SoundManager : MonoBehaviour {
 		
 	}
 
+	void Update ()
+	{
+		if (playerScript.currentHeahlt <= 0) 
+		{
+			musicSource.enabled = false;
+			efxSource.enabled = false;
+			efx2Source.enabled = false;
+			efxenemySource.enabled = false;
+			deathSource.enabled = true;
+		}
+	}
+
 	public void PlaySingle (AudioClip clip)
 	{
 		efx2Source.clip = clip;
@@ -41,6 +62,8 @@ public class SoundManager : MonoBehaviour {
 
 		efxSource.clip = clip;
 		efxSource.Play ();
+
+
 	}
 
 	public void RandomizeSfx (params AudioClip [] clips)
@@ -71,6 +94,4 @@ public class SoundManager : MonoBehaviour {
 
 
 	}
-	
-
 }

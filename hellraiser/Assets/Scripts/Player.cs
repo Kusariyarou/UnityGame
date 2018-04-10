@@ -116,6 +116,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 		AudioListener.pause = false;
 
 		InvokeRepeating ("PlaySound", 0.0f, 0.5f);
@@ -202,8 +203,6 @@ public class Player : MonoBehaviour {
 			Physics2D.IgnoreLayerCollision (8, 10);
 			myAnimator.SetTrigger ("die");
 			jumpForce = 0;
-
-
 
 
 		}

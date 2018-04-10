@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DeathScreen : MonoBehaviour {
 
+
 	public Player playerScript; 
 
 	public CanvasGroup myCanvas;
@@ -23,6 +24,7 @@ public class DeathScreen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		deadpoint.enabled = false;
 
 		deadtext.enabled = false;
@@ -45,6 +47,7 @@ public class DeathScreen : MonoBehaviour {
 		if (playerScript.currentHeahlt <= 0) {
 
 			StartCoroutine ("FadeIn");
+			GameObject.Find ("Canvas").GetComponent<PauseMenu> ().enabled = false;
 		}
 
 

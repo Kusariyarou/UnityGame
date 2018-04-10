@@ -24,6 +24,7 @@ public class FinishScript : MonoBehaviour {
 		Time.timeScale = 0f;
 		AudioListener.pause = true;
 		GameIsPaused = true;
+		GameObject.Find ("Canvas").GetComponent<PauseMenu> ().enabled = false;
 	}
 
 	public void LoadMenu()
@@ -36,5 +37,11 @@ public class FinishScript : MonoBehaviour {
 	{
 		Time.timeScale = 1f;
 		SceneManager.LoadScene ("level1-5");
+	}
+
+	public void RetunMenu()
+	{
+		Time.timeScale = 1f;
+		SceneManager.LoadScene ("MainMenu");
 	}
 }
