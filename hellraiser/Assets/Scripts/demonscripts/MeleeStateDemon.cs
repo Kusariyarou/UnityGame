@@ -8,9 +8,9 @@ public class MeleeStateDemon : IEnemyStateDemon {
 
 	private float attackTimer;
 
-	private float attackCoolDown = 3;
+	private float attackCoolDown = 3f;
 
-	private bool canAttack; 
+	private bool canAttack=true; 
 
 	public void Enter(EnemyDemon enemy)
 	{
@@ -21,15 +21,11 @@ public class MeleeStateDemon : IEnemyStateDemon {
 
 	public void Execute()
 	{
-
-		DemonMeleeAttack ();
 		if (enemy.Target != null) {
-			 
-
-
+			DemonMeleeAttack ();
 		} else 
 		{
-			enemy.ChangeState (new PatrolStateDemon ());
+			enemy.ChangeState (new IdleStateDemon ());
 		}
 
 		
@@ -45,22 +41,25 @@ public class MeleeStateDemon : IEnemyStateDemon {
 		
 	}
 
+
 	private void DemonMeleeAttack()
 	{
-		enemy.enemyAnimator.SetFloat ("speed", 0);
-		attackTimer += Time.deltaTime; 
+		enemy.Stop ();
 
-		if (attackTimer >= attackCoolDown)  
-		{
-			canAttack = true;
-			attackTimer = 0f;  
+		if (canAttack) {
+			enemy.enemyAnimator.SetTrigger ("demonattack");
+			attackTimer = 0f;
+			canAttack = false;
+			enemy.ChangeState (new IdleStateDemon ());
+		} else {
+			attackTimer += Time.deltaTime; 
+			if (attackTimer >= attackCoolDown)  
+			{
+				canAttack = true;
+			}
+			else enemy.ChangeState (new IdleStateDemon ());
 		}
 
-		if (canAttack)  
-		{
-			canAttack = false; 
-			enemy.enemyAnimator.SetTrigger ("demonattack"); 
 	}
 
-}
 }

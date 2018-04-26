@@ -17,16 +17,11 @@ public class IdleStateDemon : IEnemyStateDemon {
 
 	public void Execute()
 	{
-		Debug.Log ("I'm Idling");
-
-		Idle ();
-
 		if (enemy.Target != null) 
 		{
 			enemy.ChangeState (new MeleeStateDemon ());
-
-
 		}
+		else Idle ();
 
 	}
 
@@ -42,9 +37,7 @@ public class IdleStateDemon : IEnemyStateDemon {
 
 	private void Idle()
 	{
-
-
-		enemy.enemyAnimator.SetFloat ("speed", 0);
+		enemy.Stop ();
 
 		idleTimer += Time.deltaTime;
 

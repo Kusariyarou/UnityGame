@@ -7,8 +7,8 @@ public class RangedState : IEnemyState {
 	private Enemy enemy;
 
 	private float throwTimer;
-	private float throwCoolDown = 3f;
-	private bool canThrow;
+	private float throwCoolDown = 4f;
+	private bool canThrow = true;
 
 
 	public void Enter(Enemy enemy)
@@ -18,18 +18,15 @@ public class RangedState : IEnemyState {
 
 	public void Execute()
 	{
-		ThrowBow ();
+		
 
 		if (enemy.Target != null) 
 		{
-
+			ThrowBow ();
 		}
-
-
 		else 
-		
 		{
-			enemy.ChangeState (new PatrolState ());
+			enemy.ChangeState (new IdleState ());
 		}
 
 
@@ -48,21 +45,20 @@ public class RangedState : IEnemyState {
 
 	private void ThrowBow()
 	{
-		enemy.enemyAnimator.SetFloat ("speed", 0);
-		throwTimer += Time.deltaTime;
+		enemy.Stop ();
 
-		if (throwTimer >= throwCoolDown) 
-		{
-			canThrow = true;
-			throwTimer = 0f; 
-		}
-
-		if (canThrow) 
-		{
-			canThrow = false;
+		if (canThrow) {
 			enemy.enemyAnimator.SetTrigger ("BowAttack");
-			SoundManager.instance.PlaySingle (enemy.bowstring);
-		
+			throwTimer = 0f;
+			canThrow = false;
+			enemy.ChangeState (new IdleState ());
+		} else {
+			throwTimer += Time.deltaTime; 
+			if (throwTimer >= throwCoolDown)  
+			{
+				canThrow = true;
+			}
+			else enemy.ChangeState (new IdleState ());
 		}
 	}
 

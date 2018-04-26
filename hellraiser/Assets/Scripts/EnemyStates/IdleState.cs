@@ -8,27 +8,20 @@ public class IdleState : IEnemyState {
 
 	private float idleTimer;
 
-	private float idleDuration;
+	private float idleDuration=3f;
 
 	public void Enter(Enemy enemy)
 	{
 		this.enemy = enemy;
-
-		idleDuration = UnityEngine.Random.Range (1, 10);
 	}
 
 	public void Execute()
 	{
-		Debug.Log ("I'm Idling");
-
-		Idle ();
-
 		if (enemy.Target != null) 
 		{
 			enemy.ChangeState (new RangedState ());
-
-
 		}
+		else Idle ();
 
 	}
 
@@ -45,8 +38,7 @@ public class IdleState : IEnemyState {
 	private void Idle()
 	{
 
-
-		enemy.enemyAnimator.SetFloat ("speed", 0);
+		enemy.Stop ();
 
 		idleTimer += Time.deltaTime;
 

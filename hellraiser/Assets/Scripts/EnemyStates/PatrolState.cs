@@ -8,26 +8,19 @@ public class PatrolState : IEnemyState {
 
 	private float patrolTimer;
 
-	private float patrolDuration;
+	private float patrolDuration= 5f;
 
 	public void Enter(Enemy enemy)
 	{
 		this.enemy = enemy;
-		patrolDuration = UnityEngine.Random.Range (5, 15);
 	}
 
 	public void Execute()
 	{
-		Debug.Log("Patroling");
-		Patrol ();
-
-		enemy.Move ();
-
-		if (enemy.Target != null) 
-		{
-			
+		if (enemy.Target != null) {
 			enemy.ChangeState (new RangedState ());
-
+		} else {
+			Patrol ();
 		}
 	}
 
@@ -41,22 +34,14 @@ public class PatrolState : IEnemyState {
 
 		if (other.tag == "Edge") 
 		{
-			
-
 			enemy.ChangeDirection ();
-
-
 		}
-
-
 
 	}
 
 	private void Patrol()
 	{
-
-
-
+		enemy.Move ();
 		patrolTimer += Time.deltaTime;
 
 		if (patrolTimer >= patrolDuration) 

@@ -31,11 +31,6 @@ public class PointTriggerDemon : MonoBehaviour {
 		{
 			death.enabled = true;
 		}
-
-
-
-
-		
 	}
 
 	void OnTriggerEnter2D(Collider2D other)

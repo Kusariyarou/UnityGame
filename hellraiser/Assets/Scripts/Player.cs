@@ -96,26 +96,13 @@ public class Player : MonoBehaviour {
 	public Text healthText;
 
 
-
-
-
 	private bool flashActive;
 	public float flashLength;
 	private float flashCounter;
 
 
-
-
-
-
-
-
-
-
-
 	// Use this for initialization
 	void Start () {
-
 
 		AudioListener.pause = false;
 
@@ -277,16 +264,8 @@ public class Player : MonoBehaviour {
 
 		}
 
-
-
-
-
-
 		myAnimator.SetFloat ("speed", Mathf.Abs(horizontal));
-
 	
-
-		
 	}
 
 	private void HandleAttacks()
@@ -305,11 +284,6 @@ public class Player : MonoBehaviour {
 			}
 
 		}
-
-
-	
-			
-
 
 		if (fastattack && (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") ||
 		    myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Run") ||
@@ -330,8 +304,6 @@ public class Player : MonoBehaviour {
 			myRigidbody.velocity = Vector2.zero;
 		}
 
-
-	
 	}
 
 
@@ -359,7 +331,8 @@ public class Player : MonoBehaviour {
 			
 			rolling = true;
 		}
-			
+
+
 
 		if (Input.GetAxis ("Vertical") < 0 && canDown && Input.GetButtonDown ("Jump"))  //! aşağı ok butonunu al
 		{
@@ -368,18 +341,17 @@ public class Player : MonoBehaviour {
 			
 			
 
-		if (Input.GetAxis ("Vertical") < 0)   // crouch true false yapma
-			crouching = true;
-		if (crouching && Input.GetAxis ("Vertical") > -1 )
-			crouching = false;
-
-		if (crouching && myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
-			myAnimator.SetBool ("crouching", true);
-		} else if (!crouching && myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Crouch"))
-		{
+		if (Input.GetAxis ("Vertical") < 0) {   // crouch true false yapma
+			if (myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+				myAnimator.SetBool ("crouching", true);
+				crouching = true;
+			}
+		} else if(crouching && Input.GetAxis ("Vertical") > -1){
 			myAnimator.SetBool ("crouching", false);
+			crouching = false;
 		}
-			
+
+
 
 	}
 
@@ -407,9 +379,6 @@ public class Player : MonoBehaviour {
 		rolling = false;
 
 		bowattack = false;
-
-
-
 
 	}
 
@@ -454,22 +423,13 @@ public class Player : MonoBehaviour {
 
 		}
 
-
-			
-
-		
-
 	}
 
 	void OnCollisionExit2D(Collision2D coll) {
 		if (coll.gameObject.tag == "DownThrough")
 			canDown= false;
 
-
-		
-
 	}
-
 
 
 	public void ThrowGreenBow (int value)

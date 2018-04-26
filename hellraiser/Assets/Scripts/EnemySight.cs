@@ -15,22 +15,16 @@ public class EnemySight : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other)
 	{
 
-		if (other.tag == "Player") 
+		if (other.GetType().ToString()=="UnityEngine.CapsuleCollider2D" && other.tag == "Player") 
 		{
 			enemy.Target = other.gameObject;
-
-			 
-
 		}
-
-
-
 
 	}
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.tag == "Player") 
+		if (other.GetType().ToString()=="UnityEngine.CapsuleCollider2D" && other.tag == "Player") 
 		{
 			enemy.Target = null;
 		}

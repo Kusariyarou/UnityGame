@@ -8,7 +8,7 @@ public class PatrolStateDemon : IEnemyStateDemon {
 
 	private float patrolTimer;
 
-	private float patrolDuration = 10;
+	private float patrolDuration = 10f;
 
 	public void Enter(EnemyDemon enemy)
 	{
@@ -17,16 +17,12 @@ public class PatrolStateDemon : IEnemyStateDemon {
 
 	public void Execute()
 	{
-		Debug.Log("Patroling");
-		Patrol ();
 
-		enemy.Move ();
-
-		if (enemy.Target != null) 
-		{
-			
+		if (enemy.Target != null) {
 			enemy.ChangeState (new MeleeStateDemon ());
 
+		} else {
+			Patrol ();
 		}
 	}
 
@@ -37,25 +33,15 @@ public class PatrolStateDemon : IEnemyStateDemon {
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-
 		if (other.tag == "Edge") 
 		{
-			
-
 			enemy.ChangeDirection ();
-
-
 		}
-
-
-
 	}
 
 	private void Patrol()
 	{
-
-
-
+		enemy.Move ();
 		patrolTimer += Time.deltaTime;
 
 		if (patrolTimer >= patrolDuration) 

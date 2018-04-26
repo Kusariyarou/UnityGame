@@ -27,8 +27,6 @@ public class DemonHealth : Character {
 	// Use this for initialization
 	void Start () {
 
-
-
 		Physics2D.IgnoreLayerCollision (14, 13, false);
 		Physics2D.IgnoreLayerCollision (14, 16, false);
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEnemyStateDemon 
+public interface IEnemyStateDemon
 {
 
 	void Execute ();

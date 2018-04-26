@@ -10,26 +10,10 @@ public class Enemy : Character {
 
 	public AudioClip bowstring;
 
-
-	 
-
-
-
-
-
-
 	public GameObject Target {
 		get;
 		set;
 	}
-
-
-
-
-
-
-
-
 
 
 	// Use this for initialization
@@ -37,12 +21,6 @@ public class Enemy : Character {
 
 
 		Physics2D.IgnoreLayerCollision (9, 14);
-
-
-		 
-
-
-
 
 		ChangeState (new IdleState ());
 	}
@@ -57,21 +35,9 @@ public class Enemy : Character {
 			movementSpeed = 0;
 		}
 
-
-
-
-
-
 			currentState.Execute ();
 
 			LookAtTarget (); 
-
-
-
-
-			
-
-
 
 	}
 
@@ -105,18 +71,17 @@ public class Enemy : Character {
 
 	public void Move()
 	{
-		
-		
-
 			enemyAnimator.SetFloat ("speed", 1);
 
 			transform.Translate (GetDirection () * (movementSpeed * Time.deltaTime));
-		
 	}
 
+	public void Stop()
+	{
 
-
-
+		enemyAnimator.SetFloat ("speed", 0);
+		transform.Translate(GetDirection () * (movementSpeed * 0));
+	}
 
 	public Vector2 GetDirection()
 	{
@@ -129,21 +94,11 @@ public class Enemy : Character {
 
 		currentState.OnTriggerEnter2D (other);
 
-
-
-
-
-
-
-
-
-
 	}
 			
 
 
-
-	}
+}
 
 
 
